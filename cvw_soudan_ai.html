@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>CVW相談AI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { font-family: "Arial", sans-serif; background: #fff8f0; padding: 20px; margin: 0; }
+        .chat-box { max-width: 600px; margin: auto; background: white; border-radius: 10px; padding: 20px; box-shadow: 0 0 15px rgba(0,0,0,0.1); }
+        .message { margin: 10px 0; }
+        .user { text-align: right; color: #2c3e50; }
+        .bot { text-align: left; color: #e67e22; }
+        input[type="text"] { width: 70%; padding: 10px; border-radius: 5px; border: 1px solid #ccc; }
+        button { padding: 10px 15px; background: #e67e22; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        .donation-box { margin-top: 20px; text-align: center; }
+        .donation-box a { text-decoration: none; background: #27ae60; color: white; padding: 10px 20px; border-radius: 5px; display: inline-block; }
+    </style>
+</head>
+<body>
+    <div class="chat-box">
+        <h2>CVW相談AI</h2>
+        <div id="chat-log" class="chat-log"></div>
+        <input type="text" id="user-input" placeholder="相談内容を入力してください">
+        <button onclick="sendMessage()">送信</button>
+
+        <div class="donation-box">
+            <p>あなたの寄付が子どもたちを守ります</p>
+            <a href="https://checkout.square.site/merchant/MLX30TSTRDSNB/checkout/RLEFR7MZEVMZKTKADM4TVTAS" target="_blank">寄付する</a>
+        </div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            const input = document.getElementById('user-input');
+            const log = document.getElementById('chat-log');
+            const message = input.value.trim();
+            if (message === '') return;
+
+            log.innerHTML += '<div class="message user"><strong>あなた:</strong> ' + message + '</div>';
+            let response = 'すみません、うまく理解できませんでした。もう一度教えてください。';
+
+            if (message.includes('学校') || message.includes('不登校')) {
+                response = '学校のことで悩んでいるのですね。不登校の支援団体やフリースクールを紹介できますよ。';
+            } else if (message.includes('ご飯') || message.includes('食べ物') || message.includes('食事')) {
+                response = '食事に困っているのですね。「だれでも食堂」など、無料で食事を提供している場所があります。';
+            } else if (message.includes('暴力') || (message.includes('親') && message.includes('こわい'))) {
+                response = '家庭内の暴力は深刻な問題です。あなたが安心できる場所を一緒に探しましょう。';
+            } else if (message.includes('発達') || message.includes('障がい')) {
+                response = '発達や障がいについて不安があるのですね。お近くの児童相談所や支援センターが力になりますよ。';
+            } else if (message.includes('お金') || message.includes('生活')) {
+                response = '生活が大変なときは、行政や団体の支援制度を利用しましょう。一緒に探しますね。';
+            }
+
+            log.innerHTML += '<div class="message bot"><strong>CVW相談AI:</strong> ' + response + '</div>';
+            input.value = '';
+        }
+    </script>
+</body>
+</html>
